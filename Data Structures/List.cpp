@@ -129,6 +129,12 @@ public:
             return head->getData();
         }
     }
+    /**
+     * TODO:
+     * topBack()
+     * popBack()
+     * remove(int ubication)
+     */
 
     // Delete the element in the head
     // Complexity O(1)
