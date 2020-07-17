@@ -7,67 +7,79 @@ pointer to another node*/
 
 using namespace std;
 
-template <class T>
 class Node
 {
 private:
-    T data;
+    // You can put either a specific class or a template
+    int data;
     Node *next;
 
 public:
     Node() { next = nullptr; };
 
-    Node(T _data)
+    Node(int _data)
     {
         data = _data;
         next = nullptr;
     }
 
-    void setData(T _data) { data = _data; }
+    void setData(int _data) { data = _data; }
 
     void setNext(Node *_next) { next = _next; }
 
-    Node<T> *getNext() { return next; }
+    Node *getNext() { return next; }
 
-    T getData() { return data; }
+    int getData() { return data; }
 
     bool isEmpty() { return next == nullptr; }
 };
 
 /* Has an advantage over arrays, don't need to declare
 the size previously */
-template <class T>
 class List
 {
 
 private:
-    Node<T> *head;
+    Node *head;
+    int size;
 
 public:
     /* There's always a node that the "next" pointer is empty
        this node represents the final of the list. The value
        of this node it's not important and is never acceded */
-    List() { head = new Node<T>(); };
-
-    List(Node<T> *_head) { head = _head; };
-
-    // This operation takes O(1)
-    void insertAtFront(T data)
-    {
-        Node<T> *newNode = new Node<T>(data);
-        newNode->setNext(head);
-        head = newNode;
+    List() { 
+        head = new Node();
+        this->size = 0;
     }
 
-    // This operation takes O(n) for n list size
-    void insertAtBack(T data)
+    List(Node *_head) { 
+        head = _head;
+        this->size = 0;
+    }
+
+    int getSize () {
+        return this->size;
+    }
+
+    // This operation takes O(1)
+    void insertAtFront(int data)
     {
-        Node<T> *newNode = new Node<T>(data);
-        Node<T> *currentNode = head;
+        Node *newNode = new Node(data);
+        newNode->setNext(head);
+        head = newNode;
+        this->size++;
+    }
+
+    // // Complexity O(n)
+    void insertAtBack(int data)
+    {
+        Node *newNode = new Node(data);
+        Node *currentNode = head;
         if (currentNode->isEmpty())
         {
             newNode->setNext(head);
             head = newNode;
+            this->size++;
         }
         else
         {
@@ -77,20 +89,40 @@ public:
             }
             newNode->setNext(currentNode->getNext());
             currentNode->setNext(newNode);
+            this->size++;
+        }
+    }
+
+    // return the element at the position required
+    // Complexity O(n)
+    int get(int position)
+    {
+        if (position < this->size || position < 0) {
+            Node *currentNode = head;
+            while (position > 0) {
+                currentNode = currentNode->getNext();
+                position--;
+            }
+            return currentNode->getData();
+        }
+        else {
+            cout << "Error: Index out of bounds" << endl;
+            return -99999;
         }
     }
 
     bool isEmpty()
     {
-        return head->isEmpty();
+        return (this->size == 0);
     }
 
     // Returns the element in the head
-    T top()
+    int top()
     {
         if (this->isEmpty())
         {
-            cout << "Error la lista esta vacia" << endl;
+            cout << "Error: list empty" << endl;
+            return -99999;
         }
         else
         {
@@ -98,35 +130,59 @@ public:
         }
     }
 
+    // Delete the element in the head
+    // Complexity O(1)
     void pop(void)
     {
         if (this->isEmpty())
         {
-            cout << "Error la lista esta vacia" << endl;
+            cout << "Error: list empty" << endl;
         }
         else
         {
-            Node<T> *tmp = head->getNext();
+            Node *tmp = head->getNext();
             delete head;
             head = tmp;
+            this->size--;
         }
+    }
+
+    void show () {
+        Node* currentNode = head;
+        while (!currentNode->isEmpty()) {
+            cout << "->[" << currentNode->getData() << "]";
+            currentNode = currentNode->getNext();
+        }
+        cout << "->end" << endl;
     }
 };
 
 int main()
 {
-    List<int> *myList = new List<int>();
-    myList->insertAtFront(3); // [3]->end
-    myList->insertAtFront(2); // [2]->[3]->end
-    myList->insertAtBack(4);  // [2]->[3]->[4]->end
-    myList->insertAtFront(1); // [1]->[2]->[3]->[4]->end
-    myList->insertAtBack(5);  // [1]->[2]->[3]->[4]->[5]->end
+    List *myList = new List();
 
+    cout << "-----// Inserting elements to the list //------" << endl;
+    myList->show();
+    myList->insertAtFront(3); // [3]->end
+    myList->show();
+    myList->insertAtFront(2); // [2]->[3]->end
+    myList->show();
+    // cout << "Size of the list: " << myList->getSize() << endl;
+    myList->insertAtBack(4);  // [2]->[3]->[4]->end
+    myList->show();
+    myList->insertAtFront(1); // [1]->[2]->[3]->[4]->end
+    myList->show();
+    myList->insertAtBack(5);  // [1]->[2]->[3]->[4]->[5]->end
+    myList->show();
+
+    cout << "\n ------// Deleting elements //-------" << endl;
     /* The list is traversed from the last elemento inserted in front*/
     while (!myList->isEmpty())
     {
         cout << "item -> " << myList->top() << endl;
         myList->pop();
+        myList->show();
+        // cout << "Size of the list -> " << myList->getSize() << endl;
     }
 
     system("PAUSE");
