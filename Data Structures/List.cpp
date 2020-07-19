@@ -1,4 +1,5 @@
-/* A list is similar to a chain, where each link is called "Node".
+/* Simple Linked List
+A list is similar to a chain, where each link is called "Node".
 Each node is composed by two elements; the first called "Data" it holds
 the value of that node (ex: int, string or a class), the second is a
 pointer to another node*/

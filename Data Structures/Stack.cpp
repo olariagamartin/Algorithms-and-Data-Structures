@@ -81,7 +81,9 @@ int main () {
 
     // Operations push, pop and top has a complexity of O(1)
     Stack* myStack = new Stack();
+
     cout << "------// Stack with linked list //------" << endl;
+    
     myStack->push(2); myStack->show(); // [2]->end
     myStack->push(9); myStack->show(); // [9]->[2]->end
     myStack->push(5); myStack->show(); // [5]->[9]->[2]->end
