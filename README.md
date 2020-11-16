@@ -4,12 +4,13 @@ _Code explained of some algorithms and data structures_
 ## Organization
 
 ### Data Structures
-* Stacks (add)
-* Lists (add)
-* Queues (add)
+* Stacks (done)
+* Lists (done)
+* Queues (done)
+* Binary Trees (add)
 * Heaps (add)
-* Trees (add)
 * Graphs (add)
+* Hash (add)
 
 ### Algorithms
 * Bubble Sort (add)
@@ -19,3 +20,4 @@ _Code explained of some algorithms and data structures_
 * Quick Sort (add)
 * Merge Sort (add)
 * Heap Sort (add)
+* Dijkstra "graphs" (add)

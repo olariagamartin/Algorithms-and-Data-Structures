@@ -85,6 +85,8 @@ public:
 };
 
 int main () {
+
+    // Operations enqueue, dequeue and getFront has a complexity of O(1)
     Queue *myQueue = new Queue();
 
     cout << "-------// Queue with linked list //-------" << endl;
